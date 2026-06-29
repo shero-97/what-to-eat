@@ -455,8 +455,13 @@ window.addEventListener('hashchange',()=>{
 function buildCats(){
   document.getElementById('cats').innerHTML = [
     {id:'all',n:'全部',e:'📋'},
-    ...CATS.map(c=>({id:c,n:c,e:DISHES.find(d=>d.c===c)?.e||'🍽️'}))
+    ...CATS.map(c=>{
+      const cnt=DISHES.filter(d=>d.c===c).length;
+      return {id:c,n:c+'('+cnt+')',e:DISHES.find(d=>d.c===c)?.e||'🍽️'};
+    })
   ].map(c=>`<div class="cat${curCat===c.id?' on':''}" data-cat="${c.id}" onclick="filterCat('${c.id}')">${c.n}</div>`).join('');
+  // Update '全部' count
+  document.querySelector('.cat[data-cat="all"]').textContent='📋 全部('+DISHES.length+')';
 }
 buildCats();
 
@@ -480,11 +485,12 @@ function render(){
   }else{
     m.innerHTML=items.map(d=>{
       const sel=!!selected[d.n];
+      const qty=sel?selected[d.n].qty:0;
       const imgHtml = d.img ? '<img src="'+d.img+'" alt="'+d.n+'" loading="lazy">' : '<span class="de">'+d.e+'</span>';
       return '<div class="dish'+(sel?' sel':'')+'" onclick="toggleDish(\''+d.n.replace(/'/g,"\\'")+'\')">'+
-        '<div class="dish-img">'+imgHtml+'</div>'+
+        '<div class="dish-img">'+imgHtml+(qty>1?'<span style="position:absolute;bottom:4px;right:4px;background:var(--p);color:#fff;border-radius:10px;padding:1px 7px;font-size:11px;font-weight:700">x'+qty+'</span>':'')+'</div>'+
         '<div class="dish-info"><div class="dish-name">'+d.n+'</div><div class="dish-desc">'+d.d+'</div></div>'+
-        '<div class="dish-check">✓</div>'+
+        '<div class="dish-check">'+(qty||'✓')+'</div>'+
       '</div>';
     }).join('');
   }
@@ -492,37 +498,46 @@ function render(){
 }
 
 // ======== SELECTION ========
-function toggleDish(name){
-  if(selected[name])delete selected[name];
-  else selected[name]=DISHES.find(d=>d.n===name);
+function toggleDish(name,delta){
+  if(delta===undefined)delta=1;
+  const entry=selected[name];
+  if(entry){entry.qty+=delta;if(entry.qty<=0)delete selected[name];}
+  else if(delta>0){selected[name]={d:DISHES.find(d=>d.n===name),qty:1};}
   saveStore({selected});render();
 }
 
 function resetAll(){selected={};saveStore({selected});render();showToast('已清空')}
 
 function updateBar(){
-  const c=Object.keys(selected).length;
-  document.getElementById('bbarCount').textContent=c;
-  document.getElementById('bbarBtn').disabled=c===0;
+  let total=0;let items=0;
+  for(const k in selected){total+=selected[k].qty;items++;}
+  document.getElementById('bbarCount').textContent=total+' 份 ('+items+'种)';
+  document.getElementById('bbarBtn').disabled=total===0;
 }
 
 // ======== CART / ORDER ========
 function showCart(){
-  const items=Object.values(selected);
+  const items=Object.entries(selected).map(([k,v])=>({name:k,...v}));
   const cd=document.getElementById('cartItems');
   if(items.length===0){
     cd.innerHTML='<div style="color:var(--tm);text-align:center;padding:30px">还没选菜呢 🥺</div>';
   }else{
-    cd.innerHTML=items.map(d=>`
-      <div class="si-row">
-        <div class="si-emoji">${d.e}</div>
-        <div class="si-info">
-          <div class="si-name">${d.n}</div>
-          <div class="si-cat">${d.c} · ${d.d}</div>
-        </div>
-        <button class="si-del" onclick="event.stopPropagation();toggleDish('${d.n.replace(/'/g,"\\'")}');showCart()">✕</button>
-      </div>
-    `).join('');
+    cd.innerHTML=items.map(e=>{
+      const d=e.d;
+      return '<div class="si-row">'+
+        '<div class="si-emoji">'+d.e+'</div>'+
+        '<div class="si-info">'+
+          '<div class="si-name">'+d.n+'</div>'+
+          '<div class="si-cat">'+d.c+' · '+d.d+'</div>'+
+        '</div>'+
+        '<div style="display:flex;align-items:center;gap:4px">'+
+          '<button class="mg-act" style="width:26px;height:26px;font-size:16px" onclick="event.stopPropagation();toggleDish(\''+d.n.replace(/'/g,"\\'")+'\',-1);showCart()">−</button>'+
+          '<span style="min-width:20px;text-align:center;font-weight:700">'+e.qty+'</span>'+
+          '<button class="mg-act" style="width:26px;height:26px;font-size:16px" onclick="event.stopPropagation();toggleDish(\''+d.n.replace(/'/g,"\\'")+'\',1);showCart()">+</button>'+
+          '<button class="si-del" onclick="event.stopPropagation();delete selected[\''+d.n.replace(/'/g,"\\'\")+'\'];saveStore({selected});showCart();render()">✕</button>'+
+        '</div>'+
+      '</div>';
+    }).join('');
   }
   document.getElementById('cartNotes').value = store.notes || '';
   document.getElementById('overlay').classList.add('show');
@@ -531,12 +546,12 @@ function showCart(){
 function hideCart(){document.getElementById('overlay').classList.remove('show')}
 
 function confirmOrder(){
-  const items=Object.values(selected);
+  const items=Object.entries(selected).map(([k,v])=>({n:v.d.n,c:v.d.c,e:v.d.e,qty:v.qty}));
   if(items.length===0)return;
   const notes=document.getElementById('cartNotes').value.trim();
   const order={
     date:new Date().toLocaleString('zh-CN'),
-    items:items.map(d=>({n:d.n,c:d.c,e:d.e})),
+    items:items,
     notes:notes,
     id:Date.now()
   };
@@ -545,10 +560,9 @@ function confirmOrder(){
   document.getElementById('cartNotes').value='';
   saveStore({selected,orders});
   hideCart();render();updateBar();
-  showToast(`✅ 已下单，${items.length}道菜`);
+  const ttl=items.reduce((s,i)=>s+i.qty,0);
+  showToast('\u2705 \u5df2\u4e0b\u5355\uff0c'+ttl+'\u4efd ('+items.length+'\u79cd)');
 }
-
-// ======== ORDER HISTORY ========
 function renderHistory(){
   const h=document.getElementById('historyList');
   if(orders.length===0){
