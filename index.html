@@ -176,6 +176,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Micr
       <div class="mg-form-row"><div class="mg-label">分类</div><select class="mg-select" id="mgCat"></select></div>
       <div class="mg-form-row"><div class="mg-label">Emoji</div><input class="mg-input" id="mgEmoji" placeholder="🍖" maxlength="2"></div>
     </div>
+    <div class="mg-form-row"><div class="mg-label">图片URL（可选，留空则显示emoji）</div><input class="mg-input" id="mgImgUrl" placeholder="https://... 或粘贴图片链接"></div>
+    <div class="mg-form-row"><div class="mg-label">或本地上传图片</div><input type="file" accept="image/*" id="mgImgFile" onchange="previewMgImg()" style="font-size:13px"><div id="mgImgPreview" style="margin-top:6px;max-width:120px;display:none"><img id="mgImgPrevImg" style="width:100%;border-radius:8px"><button onclick="clearMgImg()" style="font-size:11px;color:var(--p);background:none;border:none;cursor:pointer;margin-top:2px">✕ 清除</button></div></div>
     <button class="mg-btn pri" onclick="saveDish()">💾 保存</button>
     <button class="mg-btn sec" onclick="cancelEdit()" id="mgCancelBtn" style="display:none">取消编辑</button>
   </div>
@@ -513,10 +515,13 @@ function saveDish(){
   const d=document.getElementById('mgDesc').value.trim();
   const c=document.getElementById('mgCat').value;
   const e=document.getElementById('mgEmoji').value.trim()||'🍽️';
+  const imgUrl=document.getElementById('mgImgUrl').value.trim();
+  const imgData=document.getElementById('mgImgPrevImg').src||'';
+  const img=imgData.startsWith('data:')?imgData:(imgUrl||'');
   const idx=parseInt(document.getElementById('mgEditIdx').value);
   if(!n||!d){showToast('请填写名称和描述');return}
-  if(idx>=0){DISHES[idx]={n,d,c,e};showToast('✅ 已修改')}
-  else{DISHES.push({n,d,c,e});showToast('✅ 已添加')}
+  if(idx>=0){DISHES[idx]={n,d,c,e,img:img||undefined};showToast('✅ 已修改')}
+  else{DISHES.push({n,d,c,e,img:img||undefined});showToast('✅ 已添加')}
   saveStore({});renderMgList();buildCats();render();cancelEdit();
 }
 
@@ -524,9 +529,28 @@ function cancelEdit(){
   document.getElementById('mgName').value='';
   document.getElementById('mgDesc').value='';
   document.getElementById('mgEmoji').value='';
+  document.getElementById('mgImgUrl').value='';
+  document.getElementById('mgImgFile').value='';
+  document.getElementById('mgImgPreview').style.display='none';
   document.getElementById('mgEditIdx').value='-1';
   document.getElementById('mgFormTitle').textContent='➕ 添加菜品';
   document.getElementById('mgCancelBtn').style.display='none';
+}
+
+function previewMgImg(){
+  const f=document.getElementById('mgImgFile').files[0];
+  if(!f)return;
+  const reader=new FileReader();
+  reader.onload=function(e){
+    const img=document.getElementById('mgImgPrevImg');
+    img.src=e.target.result;
+    document.getElementById('mgImgPreview').style.display='block';
+  };
+  reader.readAsDataURL(f);
+}
+function clearMgImg(){
+  document.getElementById('mgImgFile').value='';
+  document.getElementById('mgImgPreview').style.display='none';
 }
 
 function editDish(idx){
@@ -534,7 +558,14 @@ function editDish(idx){
   document.getElementById('mgName').value=d.n;
   document.getElementById('mgDesc').value=d.d;
   document.getElementById('mgCat').value=d.c;
-  document.getElementById('mgEmoji').value=d.e;
+  document.getElementById('mgEmoji').value=d.e||'';
+  document.getElementById('mgImgUrl').value=(d.img&&!d.img.startsWith('data:'))?d.img:'';
+  if(d.img&&d.img.startsWith('data:')){
+    document.getElementById('mgImgPrevImg').src=d.img;
+    document.getElementById('mgImgPreview').style.display='block';
+  }else{
+    document.getElementById('mgImgPreview').style.display='none';
+  }
   document.getElementById('mgEditIdx').value=idx;
   document.getElementById('mgFormTitle').textContent='✏️ 修改菜品';
   document.getElementById('mgCancelBtn').style.display='block';
@@ -557,17 +588,17 @@ function renderMgList(){
     ? '<div class="empty"><div class="empty-icon">📭</div><div>没有匹配的菜品</div></div>'
     : items.map((d,i)=>{
       const gi=DISHES.indexOf(d);
-      return `<div class="mg-item">
-        <div class="mg-item-emoji">${d.e}</div>
-        <div class="mg-item-info">
-          <div class="mg-item-name">${d.n}</div>
-          <div class="mg-item-meta">${d.c} · ${d.d}</div>
-        </div>
-        <div class="mg-item-acts">
-          <button class="mg-act" onclick="editDish(${gi})">✏️</button>
-          <button class="mg-act del" onclick="deleteDish(${gi})">🗑️</button>
-        </div>
-      </div>`;
+      return '<div class="mg-item">'+
+        '<div class="mg-item-emoji">'+(d.img?'<img src="'+d.img+'" style="width:40px;height:40px;object-fit:cover;border-radius:6px">':d.e)+'</div>'+
+        '<div class="mg-item-info">'+
+          '<div class="mg-item-name">'+d.n+'</div>'+
+          '<div class="mg-item-meta">'+d.c+' · '+d.d+'</div>'+
+        '</div>'+
+        '<div class="mg-item-acts">'+
+          '<button class="mg-act" onclick="editDish('+gi+')">✏️</button>'+
+          '<button class="mg-act del" onclick="deleteDish('+gi+')">🗑️</button>'+
+        '</div>'+
+      '</div>';
     }).join('');
 }
 
