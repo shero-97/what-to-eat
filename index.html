@@ -422,7 +422,7 @@ let DISHES = [
 // ======== LOAD/SAVE ========
 function loadStore(){
   try{const d=JSON.parse(localStorage.getItem('eat_data')||'{}');
-    if(d.dishes)DISHES=d.dishes;
+    if(d.dishes&&d.dishes.length>DISHES.length)DISHES=d.dishes;
     return d;
   }catch(e){return{}}
 }
