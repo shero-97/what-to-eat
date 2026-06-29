@@ -411,7 +411,7 @@ function render(){
     m.innerHTML=items.map(d=>{
       const sel=!!selected[d.n];
       return `<div class="dish${sel?' sel':''}" onclick="toggleDish('${d.n.replace(/'/g,"\\'")}')">
-        <div class="dish-img">${d.img?`<img src="${d.img}" alt="${d.n}" loading="lazy">`:`<span class="de">${d.e}</span>`}</div>
+        <div class="dish-img">${d.img?'<img src="'+d.img+'" alt="'+d.n+'" loading="lazy">':'<span class="de">'+d.e+'</span>'}</div>
         <div class="dish-info"><div class="dish-name">${d.n}</div><div class="dish-desc">${d.d}</div></div>
         <div class="dish-check">✓</div>
       </div>`;
