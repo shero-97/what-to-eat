@@ -54,8 +54,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Micr
 .dish{background:var(--ca);border-radius:var(--r);overflow:hidden;cursor:pointer;transition:all .15s;box-shadow:var(--sh);position:relative;user-select:none}
 .dish:active{transform:scale(.97)}
 .dish.sel{outline:3px solid var(--p);outline-offset:-3px}
-.dish-img{width:100%;aspect-ratio:4/3;overflow:hidden;background:linear-gradient(135deg,#f8f9fa,#e9ecef);position:relative}
-.dish-img img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover}
+.dish-img{width:100%;aspect-ratio:4/3;overflow:hidden;background:#fff;position:relative}
+.dish-img img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:contain;background:#fff}
 .dish-img .de{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:42px}
 .dish-info{padding:8px 10px}
 .dish-name{font-size:13px;font-weight:700}
@@ -337,86 +337,86 @@ let DISHES = [
   {n:'素炒上海青',d:'清脆碧绿，原汁原味',c:'素菜',e:'🥬',img:'images/new_menu_09_2.jpg'},
   {n:'炒土豆',d:'朴实无华，家常味道',c:'素菜',e:'🥔',img:'images/new_menu_09_3.jpg'},
   {n:'秋葵炒蛋',d:'滑嫩清爽，营养丰富',c:'荤素结合',e:'🥚',img:'images/new_menu_09_4.jpg'},
-  {n:'黄河蜜瓜',d:'口感甜蜜，11kcal/100g',c:'水果',e:'🍈',img:'images/fruitdrink_水果_01_00.jpg'},
-  {n:'白兰瓜',d:'不含脂肪，热量低',c:'水果',e:'🍈',img:'images/fruitdrink_水果_01_01.jpg'},
-  {n:'圣女果',d:'红番茄素，降低热量摄取',c:'水果',e:'🍅',img:'images/fruitdrink_水果_01_02.jpg'},
-  {n:'白凤桃',d:'低热量低胆固醇',c:'水果',e:'🍑',img:'images/fruitdrink_水果_01_03.jpg'},
-  {n:'黄心西瓜',d:'低热量高含水量',c:'水果',e:'🍉',img:'images/fruitdrink_水果_01_04.jpg'},
-  {n:'青木瓜',d:'水分足膳食纤维丰富',c:'水果',e:'🫒',img:'images/fruitdrink_水果_01_05.jpg'},
-  {n:'杨梅',d:'热量低脂肪少',c:'水果',e:'🍒',img:'images/fruitdrink_水果_01_06.jpg'},
-  {n:'杨桃',d:'富含膳食纤维',c:'水果',e:'⭐',img:'images/fruitdrink_水果_01_07.jpg'},
-  {n:'草莓',d:'纤维素高饱腹感强',c:'水果',e:'🍓',img:'images/fruitdrink_水果_01_08.jpg'},
-  {n:'西柚',d:'低卡高纤维',c:'水果',e:'🍊',img:'images/fruitdrink_水果_02_00.jpg'},
-  {n:'芭乐',d:'维C之王低热量',c:'水果',e:'🫒',img:'images/fruitdrink_水果_02_01.jpg'},
-  {n:'哈密瓜',d:'清甜爽口水分足',c:'水果',e:'🍈',img:'images/fruitdrink_水果_02_02.jpg'},
-  {n:'网纹瓜',d:'香甜软糯',c:'水果',e:'🍈',img:'images/fruitdrink_水果_02_03.jpg'},
-  {n:'芒果',d:'香甜浓郁热带风味',c:'水果',e:'🥭',img:'images/fruitdrink_水果_02_04.jpg'},
-  {n:'丑橘',d:'清甜多汁不上火',c:'水果',e:'🍊',img:'images/fruitdrink_水果_02_05.jpg'},
-  {n:'柠檬',d:'维C丰富清爽解腻',c:'水果',e:'🍋',img:'images/fruitdrink_水果_02_06.jpg'},
-  {n:'李子',d:'酸甜可口',c:'水果',e:'🫐',img:'images/fruitdrink_水果_02_07.jpg'},
-  {n:'杏子',d:'酸甜多汁',c:'水果',e:'🍑',img:'images/fruitdrink_水果_02_08.jpg'},
-  {n:'红心柚',d:'红肉清甜低热量',c:'水果',e:'🍊',img:'images/fruitdrink_水果_03_00.jpg'},
-  {n:'葡萄柚',d:'微苦回甘燃脂佳品',c:'水果',e:'🍊',img:'images/fruitdrink_水果_03_01.jpg'},
-  {n:'莲雾',d:'清脆多汁低糖分',c:'水果',e:'🍎',img:'images/fruitdrink_水果_03_02.jpg'},
-  {n:'枇杷',d:'润肺止咳清甜',c:'水果',e:'🍑',img:'images/fruitdrink_水果_03_03.jpg'},
-  {n:'西梅',d:'通便润肠低脂',c:'水果',e:'🫐',img:'images/fruitdrink_水果_03_04.jpg'},
-  {n:'黑莓',d:'花青素之王抗氧化',c:'水果',e:'🫐',img:'images/fruitdrink_水果_03_05.jpg'},
-  {n:'青枣',d:'维C丰富清脆可口',c:'水果',e:'🫒',img:'images/fruitdrink_水果_03_06.jpg'},
-  {n:'油桃',d:'光滑无毛清甜',c:'水果',e:'🍑',img:'images/fruitdrink_水果_03_07.jpg'},
-  {n:'菠萝',d:'酸甜多汁助消化',c:'水果',e:'🍍',img:'images/fruitdrink_水果_03_08.jpg'},
-  {n:'沃柑',d:'热量低水分充足',c:'水果',e:'🍊',img:'images/fruitdrink_水果_04_00.jpg'},
-  {n:'樱桃',d:'膳食纤维饱腹感强',c:'水果',e:'🍒',img:'images/fruitdrink_水果_04_01.jpg'},
-  {n:'梨子',d:'膳食纤维维C丰富',c:'水果',e:'🍐',img:'images/fruitdrink_水果_04_02.jpg'},
-  {n:'覆盆子',d:'富含膳食纤维',c:'水果',e:'🫐',img:'images/fruitdrink_水果_04_03.jpg'},
-  {n:'苹果',d:'含水量高增强饱腹',c:'水果',e:'🍎',img:'images/fruitdrink_水果_04_04.jpg'},
-  {n:'火龙果',d:'富含水分及纤维素',c:'水果',e:'🐉',img:'images/fruitdrink_水果_04_05.jpg'},
-  {n:'黄桃',d:'热量低脂肪少',c:'水果',e:'🍑',img:'images/fruitdrink_水果_04_06.jpg'},
-  {n:'蓝莓',d:'低热量含糖低',c:'水果',e:'🫐',img:'images/fruitdrink_水果_04_07.jpg'},
-  {n:'猕猴桃',d:'膳食纤维维C丰富',c:'水果',e:'🥝',img:'images/fruitdrink_水果_04_08.jpg'},
-  {n:'椰子肉',d:'热带风味能量足',c:'水果',e:'🥥',img:'images/fruitdrink_水果_05_00.jpg'},
-  {n:'干红枣',d:'补血养颜天然甜',c:'水果',e:'🫘',img:'images/fruitdrink_水果_05_01.jpg'},
-  {n:'牛油果',d:'健康脂肪营养密',c:'水果',e:'🥑',img:'images/fruitdrink_水果_05_02.jpg'},
-  {n:'榴莲',d:'水果之王浓郁香',c:'水果',e:'🫒',img:'images/fruitdrink_水果_05_03.jpg'},
-  {n:'蛋黄果',d:'粉糯香甜',c:'水果',e:'🥚',img:'images/fruitdrink_水果_05_04.jpg'},
-  {n:'沙棘',d:'维C炸弹酸爽',c:'水果',e:'🫐',img:'images/fruitdrink_水果_05_05.jpg'},
-  {n:'芭蕉',d:'软糯香甜能量足',c:'水果',e:'🍌',img:'images/fruitdrink_水果_05_06.jpg'},
-  {n:'冬枣',d:'脆甜可口维C高',c:'水果',e:'🫒',img:'images/fruitdrink_水果_05_07.jpg'},
-  {n:'菠萝蜜',d:'热带巨果甜蜜蜜',c:'水果',e:'🫒',img:'images/fruitdrink_水果_05_08.jpg'},
-  {n:'山楂',d:'酸甜开胃助消化',c:'水果',e:'🍒',img:'images/fruitdrink_水果_05_09.jpg'},
-  {n:'百香果',d:'芳香四溢维C多',c:'水果',e:'🟣',img:'images/fruitdrink_水果_05_10.jpg'},
-  {n:'人生果',d:'清甜多汁低糖',c:'水果',e:'🍈',img:'images/fruitdrink_水果_05_11.jpg'},
-  {n:'释迦',d:'奶香甜蜜热带果',c:'水果',e:'🫒',img:'images/fruitdrink_水果_05_12.jpg'},
-  {n:'柿子',d:'软糯甜蜜秋之味',c:'水果',e:'🟠',img:'images/fruitdrink_水果_05_13.jpg'},
-  {n:'山竹',d:'果中皇后清甜',c:'水果',e:'🍑',img:'images/fruitdrink_水果_05_14.jpg'},
-  {n:'荔枝',d:'甜美多汁岭南佳',c:'水果',e:'🍒',img:'images/fruitdrink_水果_05_15.jpg'},
-  {n:'可口可乐',d:'冰爽刺激经典永流传',c:'饮料',e:'🥤',img:'images/fruitdrink_饮料_01_00.jpg'},
-  {n:'芬达',d:'橙味气泡青春记忆',c:'饮料',e:'🧃',img:'images/fruitdrink_饮料_01_01.jpg'},
-  {n:'雪碧',d:'透心凉柠檬味',c:'饮料',e:'🥤',img:'images/fruitdrink_饮料_01_02.jpg'},
-  {n:'北冰洋',d:'老北京桔子汽水',c:'饮料',e:'🍊',img:'images/fruitdrink_饮料_01_03.jpg'},
-  {n:'屈臣氏',d:'苏打水清爽零卡',c:'饮料',e:'💧',img:'images/fruitdrink_饮料_01_04.jpg'},
-  {n:'旺仔牛奶',d:'香甜浓郁童年味道',c:'饮料',e:'🥛',img:'images/fruitdrink_饮料_01_05.jpg'},
-  {n:'美年达',d:'果味汽水缤纷多彩',c:'饮料',e:'🧃',img:'images/fruitdrink_饮料_01_06.jpg'},
-  {n:'百事可乐',d:'经典可乐年轻选择',c:'饮料',e:'🥤',img:'images/fruitdrink_饮料_01_07.jpg'},
-  {n:'冻柠茶',d:'冰爽柠檬茶港式风味',c:'饮料',e:'🍋',img:'images/fruitdrink_饮料_01_08.jpg'},
-  {n:'统一蜜桃多',d:'蜜桃香甜清爽',c:'饮料',e:'🍑',img:'images/fruitdrink_饮料_01_09.jpg'},
-  {n:'雪花啤酒',d:'清凉畅爽',c:'饮料',e:'🍺',img:'images/fruitdrink_饮料_01_10.jpg'},
-  {n:'酷儿',d:'Q萌橙汁童年回忆',c:'饮料',e:'🧃',img:'images/fruitdrink_饮料_01_11.jpg'},
-  {n:'维他气泡茶',d:'茶香气泡新体验',c:'饮料',e:'🍵',img:'images/fruitdrink_饮料_01_12.jpg'},
-  {n:'七喜',d:'柠檬汽水清爽',c:'饮料',e:'🥤',img:'images/fruitdrink_饮料_01_13.jpg'},
-  {n:'COSTA咖啡',d:'英伦咖啡醇香',c:'饮料',e:'☕',img:'images/fruitdrink_饮料_01_14.jpg'},
-  {n:'王老吉',d:'怕上火喝王老吉',c:'饮料',e:'🧃',img:'images/fruitdrink_饮料_01_15.jpg'},
-  {n:'统一春拂绿茶',d:'清新绿茶回甘',c:'饮料',e:'🍵',img:'images/fruitdrink_饮料_02_00.jpg'},
-  {n:'HPP沃柑汁',d:'鲜榨冷压工艺',c:'饮料',e:'🍊',img:'images/fruitdrink_饮料_02_01.jpg'},
-  {n:'东方树叶乌龙茶',d:'醇厚乌龙回甘',c:'饮料',e:'🍵',img:'images/fruitdrink_饮料_02_02.jpg'},
-  {n:'芬达橙味汽水',d:'经典橙味气泡足',c:'饮料',e:'🧃',img:'images/fruitdrink_饮料_02_03.jpg'},
-  {n:'东方树叶茉莉花茶',d:'茉莉清香淡雅',c:'饮料',e:'🍵',img:'images/fruitdrink_饮料_02_04.jpg'},
-  {n:'大窑橙诺',d:'橙味汽水怀旧风',c:'饮料',e:'🍊',img:'images/fruitdrink_饮料_02_05.jpg'},
-  {n:'元气森林气泡水',d:'零糖零卡橙味',c:'饮料',e:'🥤',img:'images/fruitdrink_饮料_02_06.jpg'},
-  {n:'腊梅红茶',d:'红茶醇香暖心',c:'饮料',e:'🍵',img:'images/fruitdrink_饮料_02_07.jpg'},
-  {n:'小象NFC苹果汁',d:'纯鲜榨不加糖',c:'饮料',e:'🧃',img:'images/fruitdrink_饮料_02_08.jpg'},
-  {n:'鸭屎香柠檬茶',d:'茶香柠檬新潮',c:'饮料',e:'🍋',img:'images/fruitdrink_饮料_02_09.jpg'},
-  {n:'NFC橙汁',d:'鲜榨纯橙汁无添加',c:'饮料',e:'🍊',img:'images/fruitdrink_饮料_02_10.jpg'},
-  {n:'北冰洋橙味汽水',d:'老牌橙味汽水',c:'饮料',e:'🍊',img:'images/fruitdrink_饮料_02_11.jpg'},
+  {n:'黄河蜜瓜',d:'口感甜蜜，11kcal/100g',c:'水果',e:'🍈',img:'images/fruit_yellow_river_melon.jpg'},
+  {n:'白兰瓜',d:'不含脂肪，热量低',c:'水果',e:'🍈',img:'images/fruit_bailan_melon.jpg'},
+  {n:'圣女果',d:'红番茄素，降低热量摄取',c:'水果',e:'🍅',img:'images/fruit_cherry_tomato.jpg'},
+  {n:'白凤桃',d:'低热量低胆固醇',c:'水果',e:'🍑',img:'images/fruit_white_phoenix_peach.jpg'},
+  {n:'黄心西瓜',d:'低热量高含水量',c:'水果',e:'🍉',img:'images/fruit_yellow_watermelon.jpg'},
+  {n:'青木瓜',d:'水分足膳食纤维丰富',c:'水果',e:'🫒',img:'images/fruit_green_papaya.jpg'},
+  {n:'杨梅',d:'热量低脂肪少',c:'水果',e:'🍒',img:'images/fruit_bayberry.jpg'},
+  {n:'杨桃',d:'富含膳食纤维',c:'水果',e:'⭐',img:'images/fruit_star_fruit.jpg'},
+  {n:'草莓',d:'纤维素高饱腹感强',c:'水果',e:'🍓',img:'images/fruit_strawberry.jpg'},
+  {n:'西柚',d:'低卡高纤维',c:'水果',e:'🍊',img:'images/fruit_grapefruit_2.jpg'},
+  {n:'芭乐',d:'维C之王低热量',c:'水果',e:'🫒',img:'images/fruit_guava.jpg'},
+  {n:'哈密瓜',d:'清甜爽口水分足',c:'水果',e:'🍈',img:'images/fruit_honeydew.jpg'},
+  {n:'网纹瓜',d:'香甜软糯',c:'水果',e:'🍈',img:'images/fruit_netted_melon.jpg'},
+  {n:'芒果',d:'香甜浓郁热带风味',c:'水果',e:'🥭',img:'images/fruit_mango.jpg'},
+  {n:'丑橘',d:'清甜多汁不上火',c:'水果',e:'🍊',img:'images/fruit_ugly_orange.jpg'},
+  {n:'柠檬',d:'维C丰富清爽解腻',c:'水果',e:'🍋',img:'images/fruit_lemon.jpg'},
+  {n:'李子',d:'酸甜可口',c:'水果',e:'🫐',img:'images/fruit_plum.jpg'},
+  {n:'杏子',d:'酸甜多汁',c:'水果',e:'🍑',img:'images/fruit_apricot.jpg'},
+  {n:'红心柚',d:'红肉清甜低热量',c:'水果',e:'🍊',img:'images/fruit_red_pomelo.jpg'},
+  {n:'葡萄柚',d:'微苦回甘燃脂佳品',c:'水果',e:'🍊',img:'images/fruit_grapefruit.jpg'},
+  {n:'莲雾',d:'清脆多汁低糖分',c:'水果',e:'🍎',img:'images/fruit_wax_apple.jpg'},
+  {n:'枇杷',d:'润肺止咳清甜',c:'水果',e:'🍑',img:'images/fruit_loquat.jpg'},
+  {n:'西梅',d:'通便润肠低脂',c:'水果',e:'🫐',img:'images/fruit_prune.jpg'},
+  {n:'黑莓',d:'花青素之王抗氧化',c:'水果',e:'🫐',img:'images/fruit_blackberry.jpg'},
+  {n:'青枣',d:'维C丰富清脆可口',c:'水果',e:'🫒',img:'images/fruit_green_jujube.jpg'},
+  {n:'油桃',d:'光滑无毛清甜',c:'水果',e:'🍑',img:'images/fruit_nectarine.jpg'},
+  {n:'菠萝',d:'酸甜多汁助消化',c:'水果',e:'🍍',img:'images/fruit_pineapple.jpg'},
+  {n:'沃柑',d:'热量低水分充足',c:'水果',e:'🍊',img:'images/fruit_tangerine.jpg'},
+  {n:'樱桃',d:'膳食纤维饱腹感强',c:'水果',e:'🍒',img:'images/fruit_cherry.jpg'},
+  {n:'梨子',d:'膳食纤维维C丰富',c:'水果',e:'🍐',img:'images/fruit_pear.jpg'},
+  {n:'覆盆子',d:'富含膳食纤维',c:'水果',e:'🫐',img:'images/fruit_raspberry.jpg'},
+  {n:'苹果',d:'含水量高增强饱腹',c:'水果',e:'🍎',img:'images/fruit_apple.jpg'},
+  {n:'火龙果',d:'富含水分及纤维素',c:'水果',e:'🐉',img:'images/fruit_dragon_fruit.jpg'},
+  {n:'黄桃',d:'热量低脂肪少',c:'水果',e:'🍑',img:'images/fruit_yellow_peach.jpg'},
+  {n:'蓝莓',d:'低热量含糖低',c:'水果',e:'🫐',img:'images/fruit_blueberry.jpg'},
+  {n:'猕猴桃',d:'膳食纤维维C丰富',c:'水果',e:'🥝',img:'images/fruit_kiwi.jpg'},
+  {n:'椰子肉',d:'热带风味能量足',c:'水果',e:'🥥',img:'images/fruit_coconut_meat.jpg'},
+  {n:'干红枣',d:'补血养颜天然甜',c:'水果',e:'🫘',img:'images/fruit_dried_red_date.jpg'},
+  {n:'牛油果',d:'健康脂肪营养密',c:'水果',e:'🥑',img:'images/fruit_avocado.jpg'},
+  {n:'榴莲',d:'水果之王浓郁香',c:'水果',e:'🫒',img:'images/fruit_durian.jpg'},
+  {n:'蛋黄果',d:'粉糯香甜',c:'水果',e:'🥚',img:'images/fruit_egg_fruit.jpg'},
+  {n:'沙棘',d:'维C炸弹酸爽',c:'水果',e:'🫐',img:'images/fruit_sea_buckthorn.jpg'},
+  {n:'芭蕉',d:'软糯香甜能量足',c:'水果',e:'🍌',img:'images/fruit_plantain.jpg'},
+  {n:'冬枣',d:'脆甜可口维C高',c:'水果',e:'🫒',img:'images/fruit_winter_jujube.jpg'},
+  {n:'菠萝蜜',d:'热带巨果甜蜜蜜',c:'水果',e:'🫒',img:'images/fruit_jackfruit.jpg'},
+  {n:'山楂',d:'酸甜开胃助消化',c:'水果',e:'🍒',img:'images/fruit_hawthorn.jpg'},
+  {n:'百香果',d:'芳香四溢维C多',c:'水果',e:'🟣',img:'images/fruit_passion_fruit.jpg'},
+  {n:'人生果',d:'清甜多汁低糖',c:'水果',e:'🍈',img:'images/fruit_ginseng_fruit.jpg'},
+  {n:'释迦',d:'奶香甜蜜热带果',c:'水果',e:'🫒',img:'images/fruit_sugar_apple.jpg'},
+  {n:'柿子',d:'软糯甜蜜秋之味',c:'水果',e:'🟠',img:'images/fruit_persimmon.jpg'},
+  {n:'山竹',d:'果中皇后清甜',c:'水果',e:'🍑',img:'images/fruit_mangosteen.jpg'},
+  {n:'荔枝',d:'甜美多汁岭南佳',c:'水果',e:'🍒',img:'images/fruit_lychee.jpg'},
+  {n:'可口可乐',d:'冰爽刺激经典永流传',c:'饮料',e:'🥤',img:'images/drink_coca_cola.jpg'},
+  {n:'芬达',d:'橙味气泡青春记忆',c:'饮料',e:'🧃',img:'images/drink_fanta.jpg'},
+  {n:'雪碧',d:'透心凉柠檬味',c:'饮料',e:'🥤',img:'images/drink_sprite.jpg'},
+  {n:'北冰洋',d:'老北京桔子汽水',c:'饮料',e:'🍊',img:'images/drink_beibingyang.jpg'},
+  {n:'屈臣氏',d:'苏打水清爽零卡',c:'饮料',e:'💧',img:'images/drink_watsons.jpg'},
+  {n:'旺仔牛奶',d:'香甜浓郁童年味道',c:'饮料',e:'🥛',img:'images/drink_wangzai_milk.jpg'},
+  {n:'美年达',d:'果味汽水缤纷多彩',c:'饮料',e:'🧃',img:'images/drink_mirinda.jpg'},
+  {n:'百事可乐',d:'经典可乐年轻选择',c:'饮料',e:'🥤',img:'images/drink_pepsi.jpg'},
+  {n:'冻柠茶',d:'冰爽柠檬茶港式风味',c:'饮料',e:'🍋',img:'images/drink_iced_lemon_tea.jpg'},
+  {n:'统一蜜桃多',d:'蜜桃香甜清爽',c:'饮料',e:'🍑',img:'images/drink_tongyi_peach.jpg'},
+  {n:'雪花啤酒',d:'清凉畅爽',c:'饮料',e:'🍺',img:'images/drink_snow_beer.jpg'},
+  {n:'酷儿',d:'Q萌橙汁童年回忆',c:'饮料',e:'🧃',img:'images/drink_qoo.jpg'},
+  {n:'维他气泡茶',d:'茶香气泡新体验',c:'饮料',e:'🍵',img:'images/drink_vita_sparkling_tea.jpg'},
+  {n:'七喜',d:'柠檬汽水清爽',c:'饮料',e:'🥤',img:'images/drink_7up.jpg'},
+  {n:'COSTA咖啡',d:'英伦咖啡醇香',c:'饮料',e:'☕',img:'images/drink_costa_coffee.jpg'},
+  {n:'王老吉',d:'怕上火喝王老吉',c:'饮料',e:'🧃',img:'images/drink_wanglaoji.jpg'},
+  {n:'统一春拂绿茶',d:'清新绿茶回甘',c:'饮料',e:'🍵',img:'images/drink_tongyi_green_tea.jpg'},
+  {n:'HPP沃柑汁',d:'鲜榨冷压工艺',c:'饮料',e:'🍊',img:'images/drink_hpp_orange_juice.jpg'},
+  {n:'东方树叶乌龙茶',d:'醇厚乌龙回甘',c:'饮料',e:'🍵',img:'images/drink_dongfang_oolong_tea.jpg'},
+  {n:'芬达橙味汽水',d:'经典橙味气泡足',c:'饮料',e:'🧃',img:'images/drink_fanta_orange.jpg'},
+  {n:'东方树叶茉莉花茶',d:'茉莉清香淡雅',c:'饮料',e:'🍵',img:'images/drink_dongfang_jasmine_tea.jpg'},
+  {n:'大窑橙诺',d:'橙味汽水怀旧风',c:'饮料',e:'🍊',img:'images/drink_dayao_orange.jpg'},
+  {n:'元气森林气泡水',d:'零糖零卡橙味',c:'饮料',e:'🥤',img:'images/drink_genki_forest_orange.jpg'},
+  {n:'腊梅红茶',d:'红茶醇香暖心',c:'饮料',e:'🍵',img:'images/drink_lamei_black_tea.jpg'},
+  {n:'小象NFC苹果汁',d:'纯鲜榨不加糖',c:'饮料',e:'🧃',img:'images/drink_xiaoxiang_apple_juice.jpg'},
+  {n:'鸭屎香柠檬茶',d:'茶香柠檬新潮',c:'饮料',e:'🍋',img:'images/drink_yashixiang_lemon_tea.jpg'},
+  {n:'NFC橙汁',d:'鲜榨纯橙汁无添加',c:'饮料',e:'🍊',img:'images/drink_nfc_orange_juice.jpg'},
+  {n:'北冰洋橙味汽水',d:'老牌橙味汽水',c:'饮料',e:'🍊',img:'images/drink_beibingyang_orange.jpg'},
 ];
 
 // ======== LOAD/SAVE ========
@@ -454,9 +454,9 @@ window.addEventListener('hashchange',()=>{
 // ======== CATEGORIES ========
 function buildCats(){
   document.getElementById('cats').innerHTML = [
-    {id:'all',n:'全部',e:'📋'},
-    ...CATS.map(c=>({id:c,n:c,e:DISHES.find(d=>d.c===c)?.e||'🍽️'}))
-  ].map(c=>`<div class="cat${curCat===c.id?' on':''}" data-cat="${c.id}" onclick="filterCat('${c.id}')">${c.n}</div>`).join('');
+    {id:'all',n:'全部('+DISHES.length+')',e:'📋'},
+    ...CATS.map(c=>{const cnt=DISHES.filter(d=>d.c===c).length;return {id:c,n:c+'('+cnt+')',e:DISHES.find(d=>d.c===c)?.e||'🍽️'};})
+  ].map(c=>'<div class="cat'+(curCat===c.id?' on':'')+'" data-cat="'+c.id+'" onclick="filterCat(\''+c.id+'\')">'+c.n+'</div>').join('');
 }
 buildCats();
 
@@ -493,36 +493,38 @@ function render(){
 
 // ======== SELECTION ========
 function toggleDish(name){
-  if(selected[name])delete selected[name];
-  else selected[name]=DISHES.find(d=>d.n===name);
+  const entry=selected[name];
+  if(entry){entry.qty++;}
+  else{selected[name]={d:DISHES.find(d=>d.n===name),qty:1};}
   saveStore({selected});render();
 }
 
 function resetAll(){selected={};saveStore({selected});render();showToast('已清空')}
 
 function updateBar(){
-  const c=Object.keys(selected).length;
-  document.getElementById('bbarCount').textContent=c;
-  document.getElementById('bbarBtn').disabled=c===0;
+  let total=0,items=0;
+  for(const k in selected){total+=selected[k].qty;items++;}
+  document.getElementById('bbarCount').textContent=total+' items ('+items+' kinds)';
+  document.getElementById('bbarBtn').disabled=total===0;
 }
 
 // ======== CART / ORDER ========
+function removeItem(name){delete selected[name];saveStore({selected});showCart();render()}
 function showCart(){
-  const items=Object.values(selected);
+  const items=Object.entries(selected).map(([k,v])=>({name:k,d:v.d,qty:v.qty}));
   const cd=document.getElementById('cartItems');
   if(items.length===0){
     cd.innerHTML='<div style="color:var(--tm);text-align:center;padding:30px">还没选菜呢 🥺</div>';
   }else{
-    cd.innerHTML=items.map(d=>`
-      <div class="si-row">
-        <div class="si-emoji">${d.e}</div>
-        <div class="si-info">
-          <div class="si-name">${d.n}</div>
-          <div class="si-cat">${d.c} · ${d.d}</div>
-        </div>
-        <button class="si-del" onclick="event.stopPropagation();toggleDish('${d.n.replace(/'/g,"\\'")}');showCart()">✕</button>
-      </div>
-    `).join('');
+    cd.innerHTML=items.map(e=>'<div class="si-row">'+
+        '<div class="si-emoji">'+e.d.e+'</div>'+
+        '<div class="si-info">'+
+          '<div class="si-name">'+e.d.n+' <span style="color:var(--p);font-size:12px">x'+e.qty+'</span></div>'+
+          '<div class="si-cat">'+e.d.c+' · '+e.d.d+'</div>'+
+        '</div>'+
+        '<button class="si-del" onclick="event.stopPropagation();removeItem(\''+e.name.replace(/'/g,"\\'")+'\')">✕</button>'+
+      '</div>'
+    ).join('');
   }
   document.getElementById('cartNotes').value = store.notes || '';
   document.getElementById('overlay').classList.add('show');
@@ -644,7 +646,28 @@ function deleteDish(idx){
   const d=DISHES[idx];
   if(!confirm(`确定删除"${d.n}"？此操作不可恢复。`))return;
   DISHES.splice(idx,1);
-  if(selected[d.n]){delete selected[d.n];saveStore({selected})}
+  if(selected[d.n]){delete selected[d.n
+  {n:'毛肚',d:'七上八下，脆嫩爽口',c:'火锅',e:'🫕',img:'images/hotpot_maodu.jpg'},
+  {n:'牛肉卷',d:'薄如蝉翼，入口即化',c:'火锅',e:'🥩',img:'images/hotpot_beef_roll.jpg'},
+  {n:'羊肉卷',d:'鲜嫩不膻，涮三秒',c:'火锅',e:'🥩',img:'images/hotpot_lamb_roll.jpg'},
+  {n:'肥肠',d:'Q弹劲道，越嚼越香',c:'火锅',e:'🥩',img:'images/hotpot_intestine.jpg'},
+  {n:'豆干',d:'吸满汤汁，豆香浓郁',c:'火锅',e:'🫘',img:'images/hotpot_dried_tofu.jpg'},
+  {n:'鸭舌',d:'鲜嫩入味，下酒好菜',c:'火锅',e:'🦆',img:'images/hotpot_duck_tongue.jpg'},
+  {n:'青笋',d:'清脆甘甜，解腻佳品',c:'火锅',e:'🥬',img:'images/hotpot_lettuce_stem.jpg'},
+  {n:'龙虾球',d:'Q弹鲜美，一口一个',c:'火锅',e:'🦞',img:'images/hotpot_lobster_ball.jpg'},
+  {n:'咖喱鱼圆',d:'咖喱浓郁，鱼香弹牙',c:'火锅',e:'🍛',img:'images/hotpot_curry_fish_ball.jpg'},
+  {n:'午餐肉',d:'火锅必备，老少皆宜',c:'火锅',e:'🥫',img:'images/hotpot_luncheon_meat.jpg'},
+  {n:'蟹柳',d:'丝丝鲜甜，蟹味十足',c:'火锅',e:'🦀',img:'images/hotpot_crab_stick.jpg'},
+  {n:'海带结',d:'爽滑脆嫩，海中珍品',c:'火锅',e:'🌿',img:'images/hotpot_kelp_knot.jpg'},
+  {n:'海带苗',d:'嫩滑鲜美，营养丰富',c:'火锅',e:'🌿',img:'images/hotpot_kelp_sprout.jpg'},
+  {n:'鱼丸',d:'弹牙多汁，鲜香四溢',c:'火锅',e:'🫕',img:'images/hotpot_fish_ball.jpg'},
+  {n:'巴沙鱼',d:'细嫩无刺，入口即化',c:'火锅',e:'🐟',img:'images/hotpot_basa_fish.jpg'},
+  {n:'宽粉',d:'Q弹爽滑，越煮越有味',c:'火锅',e:'🍜',img:'images/hotpot_wide_noodle.jpg'},
+  {n:'豆腐',d:'嫩滑细腻，吸满汤汁',c:'火锅',e:'🧈',img:'images/hotpot_tofu.jpg'},
+  {n:'虎皮鸡爪',d:'软糯入味，一吮脱骨',c:'火锅',e:'🍗',img:'images/hotpot_chicken_feet.jpg'},
+  {n:'鹌鹑蛋',d:'小巧入味，营养满分',c:'火锅',e:'🥚',img:'images/hotpot_quail_egg.jpg'},
+  {n:'娃娃菜',d:'鲜甜嫩滑，火锅绝配',c:'火锅',e:'🥬',img:'images/hotpot_baby_cabbage.jpg'},
+];saveStore({selected})}
   saveStore({});renderMgList();buildCats();render();showToast('已删除');
 }
 
